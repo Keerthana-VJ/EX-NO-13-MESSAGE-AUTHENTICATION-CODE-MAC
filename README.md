@@ -1,5 +1,7 @@
 # EX-NO-13-MESSAGE-AUTHENTICATION-CODE-MAC
-
+### NAME: KEERTHANA V
+### REG NO: 212223220045
+### DATE: 13.05.2025
 ## AIM:
 To implement MESSAGE AUTHENTICATION CODE(MAC)
 
@@ -25,10 +27,43 @@ To implement MESSAGE AUTHENTICATION CODE(MAC)
 5. Security: The security of the MAC relies on the secret key \( K \) and the strength of the hash function \( H \), ensuring that an attacker cannot forge a valid MAC without knowledge of the key.
 
 ## Program:
-
-
-
+```
+ #include <stdio.h>
+ #include <string.h>
+ #define KEY "secretkey" 
+ unsigned int calculate_mac(const char *message, const char *key) {
+ unsigned int mac = 0;
+ int i;
+ for (i = 0; i < strlen(message); i++){
+ mac ^= message[i];
+ }
+ for (i = 0; i < strlen(key); i++) {
+ mac ^= key[i];
+ }
+ return mac;
+ }
+ int main() {
+ char message[256];
+ unsigned int mac_sent, mac_received;
+ printf("Enter the message: ");
+ fgets(message, sizeof(message), stdin);
+ message[strcspn(message, "\n")] = '\0'; 
+ mac_sent = calculate_mac(message, KEY);
+ printf("Generated MAC (sent): %u\n", mac_sent);
+ 
+ mac_received = calculate_mac(message, KEY);
+ printf("Calculated MAC (received): %u\n", mac_received);
+ if (mac_sent == mac_received) 
+ {
+ printf("Message is authentic.\n");
+ } else {
+ printf("Message integrity check failed.\n");
+ }
+ return 0;
+ }
+```
 ## Output:
+![image](https://github.com/user-attachments/assets/f6611876-d19a-49b3-a94b-030267bbf564)
 
 
 ## Result:
